@@ -1,10 +1,13 @@
-
+import React from 'react';
 import './App.css';
+import Navbar from './Navbar'; 
+import Form from './FormField';
 
 function App() {
   return (
     <div className="App">
-      Hello
+      <Navbar /> 
+      <Form />
     </div>
   );
 }

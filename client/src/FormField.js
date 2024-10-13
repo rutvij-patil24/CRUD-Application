@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Axios from "axios";
@@ -6,6 +6,13 @@ import Axios from "axios";
 function FormField() {
   const [movieName, setMovieName] = useState("");
   const [review, setReview] = useState("");
+  const [moviewReviewList, setMovieList] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/get").then((response) => {
+      setMovieList(response.data);
+    });
+  }, []);
 
   const submitReview = () => {
     Axios.post("http://localhost:3001/api/insert", {
@@ -51,9 +58,19 @@ function FormField() {
           onClick={submitReview}
         >
           Submit
-        </button>
+        </button> <br></br><br></br>
+
+        {moviewReviewList.map((val) => {
+          return (
+            <p>
+              Movie Name: {val.movieName} | Movie Review: {val.movieReview}
+            </p>
+          );
+        })}    
+
       </form>
     </div>
+    
   );
 }
 
